@@ -1,81 +1,56 @@
-# BilboX-ComfyUI-Login
-This custom node uses a simple password to protect ComfyUI.
+ComfyUI-Login
+Node tùy chỉnh này sử dụng một mật khẩu đơn giản để bảo vệ ComfyUI.
 
-A fork for custom UI with specific UI and visuals. Some features like guest mode  and upload incognito have been removed.
+Đây là một phiên bản tùy chỉnh giao diện với giao diện và hình ảnh cụ thể. Một số tính năng như chế độ khách (guest mode) và chế độ tải ẩn danh (upload incognito) đã bị loại bỏ.
 
+Điều quan trọng cần biết
+Hãy lưu ý rằng không có hệ thống bảo mật tuyệt đối. Node đăng nhập này chỉ cung cấp mức bảo vệ cơ bản cho ComfyUI. Hãy sử dụng nó với sự cân nhắc của bạn.
 
-## First thing first
+Cài đặt
+Để cài đặt node này, bạn có hai tùy chọn:
 
-Please be aware that absolute security does not exist. This login node offers only basic
-protection for ComfyUI. Use it at your own risk.
+Trong thư mục ComfyUI/custom_nodes/, sử dụng lệnh git clone để tải repo này về, sau đó chạy lệnh pip install -r requirements.txt trong thư mục của repo.
 
-## How to use
+Sử dụng ComfyUI-Manager.
 
-### First Time Login:
-<img src="images/first_time_login.png" alt="First Time Login" width="520px">
+Thiết lập mật khẩu mới
+Khi đăng nhập lần đầu, bạn có thể chọn bất kỳ mật khẩu nào. Mật khẩu này sẽ được mã hóa và lưu trong tệp PASSWORD nằm trong thư mục <thư mục dự án ComfyUI>/login.
 
-### Regular Login:
-<img src="images/login.png" alt="Login" width="400px">
+Đặt lại mật khẩu khi quên
+Nếu bạn quên mật khẩu, bạn có thể đặt lại bằng cách xóa tệp PASSWORD nằm trong thư mục <thư mục dự án ComfyUI>/login. Sau đó, bạn có thể đăng nhập lại bằng một mật khẩu mới tùy ý.
 
-### Logout:
-<img src="images/logout.png" alt="Logout" width="170px">
+Loại bỏ tính năng đăng nhập
+Để vô hiệu hóa tính năng đăng nhập, bạn có thể:
 
+Thủ công xóa thư mục ComfyUI-Login nằm trong thư mục ComfyUI/custom_nodes/. Sau đó, khởi động lại ComfyUI để thay đổi có hiệu lực.
 
-## Installation
+Sử dụng ComfyUI-Manager để gỡ cài đặt nó.
 
-To install this node, you have two options:
+Sử dụng các REST API?
+ComfyUI-Login cũng bảo vệ server khỏi các API call trái phép.
 
-1. In the directory `ComfyUI/custom_nodes/`, git clone this repo, and do `pip install -r
-   requirements.txt` in the repo's directory.
+Bạn có thể tìm thấy token của mình trong console (cửa sổ dòng lệnh) nếu bạn đã thiết lập mật khẩu. Token sẽ có định dạng như sau:
 
-2. Use [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager).
-
-## Setting Up a New Password
-
-For your first login, you may choose any password. This password will be encrypted and
-stored in a file named `PASSWORD` within the `<ComfyUI project folder>/login` folder.
-
-## Resetting a Forgotten Password
-
-If you forget your password, you can reset it by deleting the `PASSWORD` file found in
-the `<ComfyUI project folder>/login` folder. After doing this, you will be able to log
-in again using a new password of your choice.
-
-## Removing the Login Feature
-
-To disable the login feature, you can either:
-
-1. Manually delete the ComfyUI-Login folder located in the `ComfyUI/custom_nodes/`
-   directory. Then, restart ComfyUI for the changes to take effect.
-
-2. Use the [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager) to uninstall
-   it.
-
-## Using REST API Calls?
-
-ComfyUI-Login also protects the server from unauthorized API calls.
-
-You can find your token in your console (command line window) if you have set your
-password. It'll look like this:
-
-```text
+text
+Copy code
 For direct API calls, use token=$2b...
-```
+Bạn có hai cách để xác thực yêu cầu của mình:
 
-You have two options to validate your call:
+Thêm tham số token. Một ví dụ có thể được tìm thấy trong tệp ./script_examples/websockets_api_example.py.
 
-1. Add an additional argument `token`. An example can be found in
-   `./script_examples/websockets_api_example.py`.
+Thêm header Authorization Bearer. Một ví dụ có thể được tìm thấy trong tệp ./script_examples/free_memory.sh.
 
-2. Add an Authorization Bearer header. An example can be found in
-   `./script_examples/free_memory.sh`
+Tùy chỉnh trang đăng nhập?
+Bạn có thể tự do chỉnh sửa tệp login.html nếu bạn muốn cá nhân hóa giao diện trang đăng nhập.
 
-## Customizing the login page?
+Giải phóng bộ nhớ khi rời khỏi
+Trình duyệt sẽ gửi yêu cầu POST /free đến server khi người dùng thoát ra, đăng xuất, hoặc làm mới trang.
 
-Feel free to modify `login.html` if you want to personalize your login page.
+Tính năng này được xử lý hoàn toàn bằng JavaScript. Nếu bạn không muốn sử dụng tính năng này, chỉ cần xóa tệp js/free_memory.js.
 
-# Free Memory When Leaving
 
-The browser will send a `/free` POST request to the server when the user is leaving, logging out, or refreshing the page.
 
-This is handled purely in JavaScript. If you prefer not to use this feature, simply delete the file `js/free_memory.js`.
+
+
+
+
