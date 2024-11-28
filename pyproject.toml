@@ -1,0 +1,15 @@
+[project]
+name = "bilbox-login"
+description = "A simple password to protect ComfyUI."
+version = "0.0.1"
+license = "LICENSE"
+dependencies = ["aiohttp", "aiohttp_session[secure]", "Jinja2", "bcrypt", "pycryptodome"]
+
+[project.urls]
+Repository = "https://github.com/syllebra/BilboX-ComfyUI-Login"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = "bilbox"
+DisplayName = "bilbox-comfyui-login"
+Icon = "https://raw.githubusercontent.com/liusida/ComfyUI-Login/main/images/icon.png"
